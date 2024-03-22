@@ -173,6 +173,16 @@ const token =  process.env.BOT;
 
 const bot = new TelegramBot(token, { polling: true });
 
+bot.onText(/\/getkey/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, `Your CloudKey is: ${chatId}`);
+});
+
+bot.onText(/\/start/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, `Join Our Telegram Channel: https://t.me/cloudbox_storage`);
+});
+
 bot.on("message", async (msg) => {
     const chatId = msg.chat.id;
     const userInput = msg.text;
