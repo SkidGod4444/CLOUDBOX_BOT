@@ -164,14 +164,24 @@ app.get("/", (req, res) => {
 });
 
 const port = 3339;
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`Server running at http://localhost:${port}`);
+// });
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token =  process.env.BOT;
 
-const bot = new TelegramBot(token, { polling: true });
+// const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot(token);
+const url = process.env.URL || 'https://cloudbox-bot.vercel.app';
+// const port = process.env.PORT || 3339;
+// This informs the Telegram servers of the new webhook.
+bot.setWebHook(`${url}/bot${token}`);
+app.use(express.json());
+app.post(`/bot${token}`, (req, res) => {
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+});
 
 bot.onText(/\/getkey/, (msg) => {
     const chatId = msg.chat.id;
@@ -190,6 +200,10 @@ bot.on("message", async (msg) => {
 
     // Send a random message
      sendRandomMessage(chatId, userInput, msg_id)
+});
+
+app.listen(port, () => {
+    console.log(`Server running at ${url}`);
 });
 
 module.exports = app;
