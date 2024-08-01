@@ -10,20 +10,20 @@ const jokes = [
 ];
 
 // Function to send a random message
-function sendRandomMessage(chatId, userInput, msg_id) {
-    const randomNumber = Math.random();
-    if (randomNumber < 2) {
-        const randomIndex = Math.floor(Math.random() * jokes.length);
-        const randomJoke = jokes[randomIndex];
-        bot.sendMessage(chatId, randomJoke, {
-            reply_to_message_id: msg_id,
-        });
-    } else {
-        bot.sendMessage(chatId, userInput, {
-            reply_to_message_id: msg_id,
-        });
-    }
-}
+// function sendRandomMessage(chatId, userInput, msg_id) {
+//     const randomNumber = Math.random();
+//     if (randomNumber < 2) {
+//         const randomIndex = Math.floor(Math.random() * jokes.length);
+//         const randomJoke = jokes[randomIndex];
+//         bot.sendMessage(chatId, randomJoke, {
+//             reply_to_message_id: msg_id,
+//         });
+//     } else {
+//         bot.sendMessage(chatId, userInput, {
+//             reply_to_message_id: msg_id,
+//         });
+//     }
+// }
 
 app.use(express.json());
 
@@ -58,7 +58,7 @@ bot.on("message", (msg) => {
     const userInput = msg.text;
     const msg_id = msg.message_id;
 
-    sendRandomMessage(chatId, userInput, msg_id);
+    // sendRandomMessage(chatId, userInput, msg_id);
 });
 
 app.listen(port, () => {
